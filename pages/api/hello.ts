@@ -13,9 +13,9 @@ export default function handler(
 ) {
   const fileContents = readFileSync("./data.json", { encoding: "utf-8" });
   const data = JSON.parse(fileContents);
-  const out = execSync("ls", { encoding: "utf-8" })
-    .split("\n")
-    .filter((n) => !!n);
+  // const out = execSync("ls", { encoding: "utf-8" })
+  //   .split("\n")
+  //   .filter((n) => !!n);
 
-  res.status(200).json({ data, out });
+  res.status(200).json({ data, out: "none" });
 }
