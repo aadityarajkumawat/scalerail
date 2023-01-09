@@ -11,8 +11,8 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const fileContents = readFileSync("./data.json", { encoding: "utf-8" });
-  const data = JSON.parse(fileContents);
+  // const fileContents = readFileSync("./data.json", { encoding: "utf-8" });
+  const data = JSON.parse("{}");
   // const out = execSync("ls", { encoding: "utf-8" })
   //   .split("\n")
   //   .filter((n) => !!n);
