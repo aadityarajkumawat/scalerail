@@ -1,12 +1,20 @@
-import { API_URL } from "../consts";
+import { sanityClient } from "../sanity";
 
-export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/hello`);
-  const data = await res.json();
-  return { props: { data, p: process.env } };
+export async function getStaticProps() {
+  const homePageContent = await sanityClient.fetch('*[_type=="home"][0]');
+  return { props: { ...homePageContent } };
 }
 
-export default function Home({ data, p }: any) {
-  console.log(data, p);
-  return <div>{JSON.stringify(data, null, 2)}</div>;
+interface HomeProps {
+  heading: string;
+  description: string;
+}
+
+export default function Home({ heading, description }: HomeProps) {
+  return (
+    <div>
+      <h1>{heading}</h1>
+      <p>{description}</p>
+    </div>
+  );
 }
