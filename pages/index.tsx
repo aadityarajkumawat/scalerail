@@ -103,16 +103,16 @@ export default function Home({ heading, description }: HomeProps) {
             </p>
             <p className="my-10 text-lg">
               Our tools are designed to maximize the most important metric at
-              your company "average hours of focused attention"
+              your company &quot;average hours of focused attention&quot;
             </p>
             <p className="my-10 text-lg">
-              We're constantly innovating new solutions to make your workflow
-              easier and more efficient
+              We&apos;re constantly innovating new solutions to make your
+              workflow easier and more efficient
             </p>
             <p className="my-10 text-lg">
               We believe everyone should have access to powerful tools that
-              enable peak productivity. With our tools, you'll be able to work
-              smarter and faster than ever before
+              enable peak productivity. With our tools, you&apos;ll be able to
+              work smarter and faster than ever before
             </p>
           </div>
         </ParallaxLayer>
