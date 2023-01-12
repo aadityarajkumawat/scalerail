@@ -15,19 +15,41 @@ export default function Home({ heading, description }: HomeProps) {
   return (
     <div>
       <Parallax pages={2}>
-        <ParallaxLayer
+        {/* <ParallaxLayer
+          speed={0.3}
           className="flex flex-col items-center justify-center"
           style={{
             backgroundPosition: "center",
-            backgroundImage: `url(leaves_neon_triangle.jpg)`,
+            backgroundImage: "url(leaves_neon_triangle.jpg)",
             backgroundSize: "cover",
           }}
         >
           <h2 className="text-center text-8xl">ScaleRail</h2>
           <p className="py-2 text-lg">software | ops | action</p>
+        </ParallaxLayer> */}
+        <ParallaxLayer
+          offset={0}
+          speed={1}
+          style={{
+            backgroundPosition: "center",
+            backgroundImage: "url(leaves_neon_triangle.jpg)",
+            backgroundSize: "cover",
+          }}
+        />
+        <ParallaxLayer offset={0} speed={0.5} className="flex justify-center">
+          <div
+            className="flex flex-col justify-center items-center"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(20, 20, 20, 0.621455) 49.08%, rgba(217, 217, 217, 0) 100%)",
+            }}
+          >
+            <h2 className="text-center text-7xl">ScaleRail</h2>
+            <p className="py-2 text-lg">software | ops | action</p>
+          </div>
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0.5}>
-          Welcome to scalerail
+          this is not what you are looking for
         </ParallaxLayer>
       </Parallax>
     </div>
