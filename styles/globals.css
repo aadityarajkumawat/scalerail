@@ -78,13 +78,11 @@ body {
 }
 
 .parallax-item:nth-child(7) {
-  height: fit-content;
   background: #000;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   /* Parallax Effect for DIV 3 */
-  min-height: 600px;
 }
 
 @media screen and (max-width: 768px) {

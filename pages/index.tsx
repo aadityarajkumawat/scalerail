@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { sanityClient } from "../sanity";
 
 export async function getStaticProps() {
@@ -11,6 +12,18 @@ interface HomeProps {
 }
 
 export default function Home({ heading, description }: HomeProps) {
+  useEffect(() => {
+    const parallax = document.getElementById("parallax");
+
+    let offset = window.pageYOffset;
+    if (parallax) parallax.style.backgroundPositionY = offset * 0.7 + "px";
+
+    // Parallax Effect for DIV 1
+    window.addEventListener("scroll", function () {
+      let offset = window.pageYOffset;
+      if (parallax) parallax.style.backgroundPositionY = offset * 0.7 + "px";
+    });
+  }, []);
   return (
     <section>
       <div
@@ -22,13 +35,16 @@ export default function Home({ heading, description }: HomeProps) {
         }}
       >
         <div
-          className="flex flex-col justify-center items-center w-full h-full flex-1"
+          id="shadow"
+          className="w-full h-full flex-col text-center flex justify-center items-center"
           style={{
             background:
               "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(20, 20, 20, 0.621455) 49.08%, rgba(217, 217, 217, 0) 100%)",
           }}
         >
-          <h2 className="text-center text-7xl">ScaleRail</h2>
+          <h2 id="shadow" className="text-center text-7xl">
+            ScaleRail
+          </h2>
           <p className="py-2 text-lg">software | ops | action</p>
         </div>
       </div>
@@ -67,8 +83,8 @@ export default function Home({ heading, description }: HomeProps) {
       <div className="parallax-item abs" style={{ justifyContent: "start" }}>
         <div className="absolute bg-black w-[500px] px-10 py-5 rounded-lg left-[3rem]">
           <p className="text-pleasant-blue">
-            Imagination is the voice of daring. If there is anything Godlike
-            about God it is that He dared to imagine everything - Henry Miller
+            The future is something which everyone reaches at the rate of sixty
+            minutes an hour, whatever he does, whoever he is | C.S. Lewis
           </p>
         </div>
       </div>
@@ -99,15 +115,22 @@ export default function Home({ heading, description }: HomeProps) {
       <div className="parallax-item abs" style={{ justifyContent: "start" }}>
         <div className="absolute bg-black w-[500px] px-10 py-5 rounded-lg left-[3rem]">
           <p className="text-pleasant-blue">
-            Imagination is the voice of daring. If there is anything Godlike
-            about God it is that He dared to imagine everything - Henry Miller
+            The true object of all human life is play. Earth is a task garden;
+            heaven a playground | GK Chesterton
           </p>
         </div>
       </div>
-      <div className="parallax-item">
+      <div className="parallax-item py-24">
         <div className="max-w-3xl m-auto">
-          <button className="border-2 border-gray-600">Appreciate</button>
+          <button className="border-2 px-4 py-1 rounded-full border-[#ffffff70] text-[#ffffff70]">
+            Appreciate
+          </button>
         </div>
+      </div>
+      <div className="flex justify-center items-center bg-[#444] py-4 text-gray-200 gap-3 text-xs">
+        <p>Terms of Service</p>
+        <p>Privacy Policy</p>
+        <p>Report Abuse</p>
       </div>
     </section>
   );
