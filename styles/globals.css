@@ -16,4 +16,79 @@ body {
   height: 100%;
   color: white;
   background-color: #000;
+  scroll-behavior: smooth;
+}
+
+.parallax-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-family: Montserrat, sans-serif;
+  width: 100%;
+}
+
+.parallax-item:first-child {
+  height: 100vh;
+  background: url('/leaves_neon_triangle.jpg');
+}
+
+.parallax-item:nth-child(2) {
+  background: url('/leaves_neon_triangle_left_90.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 400px;
+}
+
+.parallax-item:nth-child(3) {
+  height: 100vh;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Parallax Effect for DIV 3 */
+  min-height: 600px;
+}
+
+.parallax-item:nth-child(4) {
+  height: 400px;
+  background: url('/leaves_neon_triangle_left_180.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.parallax-item:nth-child(5) {
+  height: 100vh;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Parallax Effect for DIV 3 */
+  min-height: 600px;
+}
+
+.parallax-item:nth-child(6) {
+  height: 400px;
+  background: url('/leaves_neon_triangle_left_270.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.parallax-item:nth-child(7) {
+  height: fit-content;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Parallax Effect for DIV 3 */
+  min-height: 600px;
+}
+
+@media screen and (max-width: 768px) {
+  .parallax-item h2 {
+    font-size: 1.5rem;
+  }
 }
