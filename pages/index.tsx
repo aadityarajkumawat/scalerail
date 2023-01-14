@@ -16,21 +16,22 @@ export default function Home({ heading, description }: HomeProps) {
     const parallax = document.getElementById("parallax");
 
     let offset = window.pageYOffset;
-    if (parallax) parallax.style.backgroundPositionY = offset * 0.7 + "px";
+    if (parallax) parallax.style.backgroundPositionY = "center";
 
     // Parallax Effect for DIV 1
     window.addEventListener("scroll", function () {
       let offset = window.pageYOffset;
-      if (parallax) parallax.style.backgroundPositionY = offset * 0.7 + "px";
+      if (parallax)
+        parallax.style.backgroundPositionY = offset * 0.7 - 100 + "px";
     });
   }, []);
+
   return (
     <section>
       <div
         id="parallax"
         className="parallax-item"
         style={{
-          backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
@@ -42,7 +43,7 @@ export default function Home({ heading, description }: HomeProps) {
               "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(20, 20, 20, 0.621455) 49.08%, rgba(217, 217, 217, 0) 100%)",
           }}
         >
-          <h2 id="shadow" className="text-center text-7xl">
+          <h2 id="shadow" className="text-center text-7xl font-thin">
             ScaleRail
           </h2>
           <p className="py-2 text-lg">software | ops | action</p>

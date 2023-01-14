@@ -31,6 +31,7 @@ body {
 .parallax-item:first-child {
   height: 100vh;
   background: url('/leaves_neon_triangle.jpg');
+  background-position: center;
 }
 
 .parallax-item:nth-child(2) {
