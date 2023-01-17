@@ -20,7 +20,12 @@
     "next-sanity": "^4.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.4"
+    "react-multi-select-component": "^4.3.4",
+    "react-phone-number-input": "^3.2.16",
+    "react-select": "^5.7.0",
+    "react-tag-input-component": "^2.0.2",
+    "typescript": "4.9.4",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
