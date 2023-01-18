@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
@@ -158,6 +158,12 @@ const contactFormSchema = z.object({
   anythingElse: z.string(),
 });
 
+function buildAddContactQuery(boardId: string) {
+  const query = `
+            mutation AddContact ($itemName: String!, $columnVals: JSON!) {create_item(board_id: ${boardId}, item_name: $itemName, column_values: $columnVals) {id}}`;
+  return query;
+}
+
 export default function Contact() {
   const [form, setForm] = useState<ContactFormProps>({
     name: "",
@@ -203,11 +209,52 @@ export default function Contact() {
     }
   }
 
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const query = buildAddContactQuery("3820808308");
+      const date = new Date();
+
+      let vars = {
+        itemName: `Contact Form-${date.toISOString()}`,
+        columnVals: JSON.stringify({
+          email3: { email: form.email, text: form.email },
+          text7: form.name,
+        }),
+      };
+
+      const TOKEN =
+        "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjIyNDk4MzIyOCwidWlkIjozODA4MDE2OCwiaWFkIjoiMjAyMy0wMS0xOFQxMzozMjozMC4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTQ3NjI1NTUsInJnbiI6InVzZTEifQ.z9Bctr1BNSs8wv0IfOUiXZnWRkk3ZjUfgVfmICDEFTw";
+
+      const res = await fetch("https://api.monday.com/v2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: TOKEN,
+        },
+        body: JSON.stringify({
+          query,
+          variables: JSON.stringify(vars),
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log("success", data);
+      } else {
+        console.log("f");
+      }
+    } catch (error) {
+      //@ts-ignore
+      console.log(error.message);
+    }
+  }
+
   return (
     <div className="flex flex-col justify-center items-center py-10">
       <h1 className="text-3xl font-bold mb-3">Contact</h1>
       <p>Some text if you want to put something here</p>
-      <form className="mt-10 w-1/3 max-lg:w-1/2">
+      <form className="mt-10 w-1/3 max-lg:w-1/2" onSubmit={onSubmit}>
         <div className="flex items-center justify-center gap-10 mb-10 w-full">
           <Input
             id="name"
