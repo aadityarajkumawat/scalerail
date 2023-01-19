@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { sanityClient } from "../sanity";
 
 export async function getStaticProps() {
@@ -11,25 +10,6 @@ export async function getStaticProps() {
 interface HomeProps {
   heading: string;
   description: string;
-}
-
-function useScrollPosition() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleScroll = () => {
-    const position = window.pageYOffset;
-    setScrollPosition(position);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  return scrollPosition;
 }
 
 export default function Home({ heading, description }: HomeProps) {
