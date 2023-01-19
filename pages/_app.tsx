@@ -14,7 +14,14 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const authCode = getAuthCode(router.asPath);
     if (authCode) {
-      localStorage.setItem("auth_code", authCode);
+      (async () => {
+        const res = await fetch(
+          `https://auth.monday.com/oauth2/token?client_id=74399104e6f0f16764009a0d3e849d30&client_secret=32275daa1106dad8110a485849a59f16&code=${authCode}`
+        );
+        const data = await res.json();
+        localStorage.setItem("access_token", data.access_token);
+      })();
+      // localStorage.setItem("auth_code", authCode);
       router.push("/");
     }
   }, []);
