@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { sanityClient } from "../sanity";
 
@@ -32,18 +33,23 @@ function useScrollPosition() {
 }
 
 export default function Home({ heading, description }: HomeProps) {
-  const scroll = useScrollPosition();
-  console.log({ scroll });
-
   useEffect(() => {
     const parallax = document.getElementById("parallax");
-
     let offset = window.pageYOffset;
-    if (parallax) parallax.style.backgroundPositionY = "center";
+    console.log({ offset });
+    if (parallax && !offset) {
+      console.log("exec");
+      parallax.style.backgroundPositionY = "center";
+    }
 
     // Parallax Effect for DIV 1
     window.addEventListener("scroll", function () {
       let offset = window.pageYOffset;
+      if (parallax && !offset) {
+        parallax.style.backgroundPositionY = "center";
+        return;
+      }
+
       if (parallax)
         parallax.style.backgroundPositionY = offset * 0.7 - 100 + "px";
     });

@@ -5,6 +5,7 @@ import flags from "react-phone-number-input/flags";
 import { MultiSelect } from "react-multi-select-component";
 import Select from "react-select";
 import z from "zod";
+import { useRouter } from "next/router";
 
 const helpRequiringDomains = [
   {
@@ -185,6 +186,8 @@ export default function Contact() {
     phone: "",
   });
 
+  const router = useRouter();
+
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -211,6 +214,19 @@ export default function Contact() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    let TOKEN = "";
+
+    const authCode = localStorage.getItem("auth_code");
+    if (!authCode) {
+      // redi
+
+      window.open(
+        `https://auth.monday.com/oauth2/authorize?client_id=74399104e6f0f16764009a0d3e849d30`,
+        "_blank"
+      );
+    }
+
     try {
       const query = buildAddContactQuery("3820808308");
       const date = new Date();
@@ -222,9 +238,6 @@ export default function Contact() {
           text7: form.name,
         }),
       };
-
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjIyNDk4MzIyOCwidWlkIjozODA4MDE2OCwiaWFkIjoiMjAyMy0wMS0xOFQxMzozMjozMC4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTQ3NjI1NTUsInJnbiI6InVzZTEifQ.z9Bctr1BNSs8wv0IfOUiXZnWRkk3ZjUfgVfmICDEFTw";
 
       const res = await fetch("https://api.monday.com/v2", {
         method: "POST",
@@ -248,6 +261,8 @@ export default function Contact() {
       //@ts-ignore
       console.log(error.message);
     }
+
+    router.push("/", {});
   }
 
   return (
@@ -317,30 +332,35 @@ export default function Contact() {
           <div className="text-sm text-red-400">{errors.phone}</div>
         </div>
 
-        <Select
-          isMulti
-          placeholder="What can we help out with?"
-          name="helpRequiringDomains"
-          className="bg-black select text-white mb-10"
-          options={helpRequiringDomains}
-          styles={{
-            multiValueLabel: () => ({
-              color: "white",
-              display: "flex",
-            }),
-            multiValue: () => ({
-              border: "1px solid #05a8f4",
-              borderRadius: "5px",
-              display: "flex",
-              marginRight: "1rem",
-            }),
-            control: () => ({
-              border: "1px solid #05a8f4",
-              display: "flex",
-              borderRadius: "5px",
-            }),
-          }}
-        />
+        {/* <div>
+          <label htmlFor=""></label>
+          <Select
+            id=""
+            isMulti
+            placeholder="What can we help out with?"
+            name="helpRequiringDomains"
+            className="bg-black select text-white mb-10"
+            options={helpRequiringDomains}
+            styles={{
+              multiValueLabel: () => ({
+                color: "white",
+                display: "flex",
+              }),
+              multiValue: () => ({
+                border: "1px solid #05a8f4",
+                borderRadius: "5px",
+                display: "flex",
+                marginRight: "1rem",
+              }),
+              control: () => ({
+                border: "1px solid #05a8f4",
+                display: "flex",
+                borderRadius: "5px",
+              }),
+            }}
+          />
+        </div> */}
+
         <div className="w-full">
           <label
             htmlFor="anything-else"
