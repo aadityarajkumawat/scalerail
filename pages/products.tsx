@@ -59,8 +59,9 @@ function Products() {
         </div>
 
         <div className="flex flex-col justify-center items-center gap-8">
-          {PRODUCTS.core.map((product) => (
+          {PRODUCTS.core.map((product, i) => (
             <ProductCard
+              key={i}
               title={product.title}
               description={product.description}
             />
