@@ -45,7 +45,9 @@ export default function Home({ heading, description }: HomeProps) {
           <div>
             <ul className="flex items-center justify-center text-lg">
               <li>about |</li>
-              <li>products |</li>
+              <li>
+                <Link href="/products">products |</Link>
+              </li>
               <li>
                 <Link href="/contact">contact</Link>
               </li>

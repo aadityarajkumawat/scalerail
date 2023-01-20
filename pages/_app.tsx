@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         localStorage.setItem("access_token", data.access_token);
       })();
       // localStorage.setItem("auth_code", authCode);
-      router.push("/");
+      // router.push("/");
     }
   }, []);
 
