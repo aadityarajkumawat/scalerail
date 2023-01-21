@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { Navbar } from "../components/navbar";
 
 export function getAuthCode(asPath: string) {
   const r = asPath;
@@ -28,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <main className={`w-full h-full`}>
+      <Navbar />
       <Component {...pageProps} />
     </main>
   );

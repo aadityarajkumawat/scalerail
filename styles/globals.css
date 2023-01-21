@@ -34,6 +34,16 @@ body {
   background-position: center;
 }
 
+.parallax-item-ed {
+  height: 100vh;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Parallax Effect for DIV 3 */
+  min-height: 600px;
+}
+
 .parallax-item:nth-child(2) {
   background: url('/leaves_neon_triangle_left_90.jpg');
   background-size: cover;

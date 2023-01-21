@@ -1,86 +1,17 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
-import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
-import { MultiSelect } from "react-multi-select-component";
-import Select from "react-select";
+import "react-phone-number-input/style.css";
 import z from "zod";
-import { useRouter } from "next/router";
-
-const helpRequiringDomains = [
-  {
-    label: "(1) Project Mgmt - spec/build/launch tool to manage the big things",
-    value: "Project Mgmt",
-  },
-  {
-    label: "(2) Task Mgmt - spec/build/launch tool to manage the little things",
-    value: "Task Mgmt",
-  },
-  {
-    label: "(3) Software Dev - spec/build/launch custom programs",
-    value: "Software Dev",
-  },
-  {
-    label: "(4) Connect/Integrate - spec/build/launch API/Webhooks etc.",
-    value: "Connect/Integrate",
-  },
-  {
-    label: "(5) Database Dev - spec/build/launch storage systems",
-    value: "Database Dev",
-  },
-  {
-    label: "(6) Models/Algos - spec/build/launch custom analytics programs",
-    value: "Models/Algos",
-  },
-  {
-    label:
-      "(7) Automation Sprint - machines do machine stuff, people do people stuff",
-    value: "Automation Sprint",
-  },
-  {
-    label: "(8) QA/Testing - spec/build/lauch semi-automated testing programs",
-    value: "QA/Testing",
-  },
-  {
-    label: "(9) Market Analysis - structure/quantify your neighborhood",
-    value: "Market Analysis",
-  },
-  {
-    label: "(10) Expansion Strategy - now we take over neighborhood",
-    value: "Expansion Strategy",
-  },
-  {
-    label: "(11) Strategic Talent - find/screen/recommend absolute killers",
-    value: "Strategic Talent",
-  },
-  {
-    label: "(12) Bolt-On Talent - temp a ScaleRailer for dev/quant/ops/pm role",
-    value: "Bolt-On Talent",
-  },
-  {
-    label: "(13) Due Diligence - have ScaleRail fMRI before you buy",
-    value: "Due Diligence",
-  },
-  {
-    label: "(14) Capital Wayfinding - prep/connect in our PE/VC network",
-    value: "Capital Wayfinding",
-  },
-  {
-    label:
-      "(15) Aesthetics - videos, graphics, logos, and colors to tell your story",
-    value: "Aesthetics",
-  },
-];
-
-type Domains = typeof helpRequiringDomains[number];
-
+import { Navbar } from "../components/navbar";
 interface ContactFormProps {
   name: string;
   companyName: string;
   email: string;
   phone: string;
   country: string;
-  helpRequiringDomains: Array<Domains>;
   anythingElse: string;
 }
 
@@ -95,32 +26,6 @@ interface InputProps {
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   className?: string;
   textarea?: boolean;
-}
-
-function generateFormBodyStructure(
-  name: string,
-  email: { email: string; text: string },
-  companyName: string,
-  phoneData: { phone: string; countryShortName: string },
-  dropdown: Array<number>,
-  anythingElse: string
-) {
-  const localDate = new Date();
-  let timeZoneOffset = localDate.getTimezoneOffset();
-
-  const payload = {
-    answers: {
-      name,
-      email,
-      text0: companyName,
-      phone_1: phoneData,
-      dropdown,
-      long_text2: anythingElse,
-    },
-    "form-timezone-offset": timeZoneOffset,
-  };
-
-  return JSON.stringify(payload);
 }
 
 function Input(props: InputProps) {
@@ -150,12 +55,14 @@ function Input(props: InputProps) {
 }
 
 const contactFormSchema = z.object({
-  name: z.string().min(1, { message: "Please enter a name" }),
-  companyName: z.string().min(1, { message: "Please enter a company name" }),
+  name: z.string().min(0, { message: "Please enter a name" }).nullable(),
+  companyName: z
+    .string()
+    .min(0, { message: "Please enter a company name" })
+    .nullable(),
   email: z.string().email({ message: "Please enter a valid email" }),
-  phone: z.string().min(10, { message: "Please enter a valid phone number" }),
-  country: z.string().min(1, { message: "Please enter a country" }),
-  helpRequiringDomains: z.array(z.string()),
+  phone: z.string().nullable(),
+  country: z.string().min(1, { message: "Please enter a country" }).nullable(),
   anythingElse: z.string(),
 });
 
@@ -165,6 +72,48 @@ function buildAddContactQuery(boardId: string) {
   return query;
 }
 
+export async function addEntryToContactForm(
+  form: ContactFormProps,
+  token: string,
+  boardId: string
+) {
+  try {
+    const query = buildAddContactQuery(boardId);
+    const date = new Date();
+
+    let vars = {
+      itemName: `Contact Form-${date.toISOString()}`,
+      columnVals: JSON.stringify({
+        email: { email: form.email, text: form.email },
+        text7: form.name,
+      }),
+    };
+
+    const res = await fetch("https://api.monday.com/v2", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query,
+        variables: JSON.stringify(vars),
+      }),
+    });
+
+    if (res.ok) {
+      return { success: true, error: null };
+    } else {
+      throw new Error("Oops! Something went wrong.");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      return { success: false, error: error.message };
+    }
+  }
+}
+
 export default function Contact() {
   const [form, setForm] = useState<ContactFormProps>({
     name: "",
@@ -172,7 +121,6 @@ export default function Contact() {
     email: "",
     phone: "",
     country: "",
-    helpRequiringDomains: [],
     anythingElse: "",
   });
 
@@ -181,7 +129,6 @@ export default function Contact() {
     companyName: "",
     country: "",
     email: "",
-    helpRequiringDomains: "",
     name: "",
     phone: "",
   });
@@ -215,58 +162,18 @@ export default function Contact() {
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    let TOKEN = "";
+    const token = process.env.NEXT_PUBLIC_MONDAY_ACCESS_TOKEN;
+    const boardId = process.env.NEXT_PUBLIC_CONTACT_BOARD_ID;
 
-    const authCode = localStorage.getItem("auth_code");
-    if (!authCode) {
-      // redi
-
-      window.open(
-        `https://auth.monday.com/oauth2/authorize?client_id=74399104e6f0f16764009a0d3e849d30`,
-        "_blank"
-      );
-    }
-
-    try {
-      const query = buildAddContactQuery("3820808308");
-      const date = new Date();
-
-      let vars = {
-        itemName: `Contact Form-${date.toISOString()}`,
-        columnVals: JSON.stringify({
-          email3: { email: form.email, text: form.email },
-          text7: form.name,
-        }),
-      };
-
-      const res = await fetch("https://api.monday.com/v2", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: TOKEN,
-        },
-        body: JSON.stringify({
-          query,
-          variables: JSON.stringify(vars),
-        }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        console.log("success", data);
-      } else {
-        console.log("f");
-      }
-    } catch (error) {
-      //@ts-ignore
-      console.log(error.message);
+    if (!token || !boardId) {
+      return;
     }
 
     router.push("/", {});
   }
 
   return (
-    <div className="flex flex-col justify-center items-center py-10">
+    <div className="flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold mb-3">Contact</h1>
       <p>Some text if you want to put something here</p>
       <form className="mt-10 w-1/3 max-lg:w-1/2" onSubmit={onSubmit}>
@@ -331,46 +238,10 @@ export default function Contact() {
           />
           <div className="text-sm text-red-400">{errors.phone}</div>
         </div>
-
-        {/* <div>
-          <label htmlFor=""></label>
-          <Select
-            id=""
-            isMulti
-            placeholder="What can we help out with?"
-            name="helpRequiringDomains"
-            className="bg-black select text-white mb-10"
-            options={helpRequiringDomains}
-            styles={{
-              multiValueLabel: () => ({
-                color: "white",
-                display: "flex",
-              }),
-              multiValue: () => ({
-                border: "1px solid #05a8f4",
-                borderRadius: "5px",
-                display: "flex",
-                marginRight: "1rem",
-              }),
-              control: () => ({
-                border: "1px solid #05a8f4",
-                display: "flex",
-                borderRadius: "5px",
-              }),
-            }}
-          />
-        </div> */}
-
         <div className="w-full">
-          <label
-            htmlFor="anything-else"
-            className="mb-5"
-            style={{ position: "static" }}
-          >
-            Anything else you want to share?
-          </label>
           <textarea
-            className="bg-black border border-pleasant-blue rounded-md w-full p-5 mt-3"
+            placeholder="Anything else you want to share?"
+            className="bg-black border border-pleasant-blue rounded-md w-full px-5 py-3 mt-3"
             name="anythingElse"
             id="anything-else"
             cols={30}

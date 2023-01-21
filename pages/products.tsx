@@ -1,3 +1,5 @@
+import { Navbar } from "../components/navbar";
+
 interface ProductCardProps {
   title: string;
   description: string;
@@ -44,7 +46,7 @@ const PRODUCTS = {
 
 function Products() {
   return (
-    <div className="w-full py-10 flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div className="mb-10">
         <h1 className="text-3xl font-bold">Products</h1>
       </div>

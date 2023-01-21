@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import { Navbar } from "../components/navbar";
 import { sanityClient } from "../sanity";
 
 export async function getStaticProps() {
@@ -14,47 +15,20 @@ interface HomeProps {
 
 export default function Home({ heading, description }: HomeProps) {
   useEffect(() => {
-    const parallax = document.getElementById("parallax");
-    let offset = window.pageYOffset;
-    console.log({ offset });
-    if (parallax && !offset) {
-      console.log("exec");
-      parallax.style.backgroundPositionY = "center";
-    }
+    const mainText = document.getElementById("main-text");
+    if (!mainText) return;
 
-    // Parallax Effect for DIV 1
-    window.addEventListener("scroll", function () {
-      let offset = window.pageYOffset;
-      if (parallax && !offset) {
-        parallax.style.backgroundPositionY = "center";
+    window.addEventListener("scroll", () => {
+      const scroll = window.scrollY;
+      if (scroll > 200) {
         return;
       }
-
-      if (parallax)
-        parallax.style.backgroundPositionY = offset * 0.7 - 100 + "px";
+      mainText.style.transform = `translateY(${scroll + 0.1 * scroll}px)`;
     });
   }, []);
 
   return (
     <div>
-      <div className="absolute w-full h-[80px]">
-        <div className="w-full flex justify-between bg-transparent px-10 py-5">
-          <div>
-            <img src="/logo.png" alt="" style={{ width: "40px" }} />
-          </div>
-          <div>
-            <ul className="flex items-center justify-center text-lg">
-              <li>about |</li>
-              <li>
-                <Link href="/products">products |</Link>
-              </li>
-              <li>
-                <Link href="/contact">contact</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <section>
         <div
           id="parallax"
@@ -66,12 +40,15 @@ export default function Home({ heading, description }: HomeProps) {
           <div
             id="shadow"
             className="w-full h-full flex-col text-center flex justify-center items-center"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(20, 20, 20, 0.621455) 49.08%, rgba(217, 217, 217, 0) 100%)",
-            }}
           >
-            <div>
+            <div
+              id="main-text"
+              className="w-full h-[800px] flex flex-col justify-center"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(15, 15, 15, 0.7) 49.08%, rgba(217, 217, 217, 0) 100%)",
+              }}
+            >
               <h2 id="shadow" className="text-center text-7xl font-thin">
                 ScaleRail
               </h2>
@@ -79,14 +56,11 @@ export default function Home({ heading, description }: HomeProps) {
             </div>
           </div>
         </div>
-        <div className="parallax-item abs" style={{ justifyContent: "start" }}>
-          <div className="absolute bg-black w-[500px] px-10 py-5 rounded-lg left-[3rem]">
-            <p className="text-pleasant-blue">
-              Imagination is the voice of daring. If there is anything Godlike
-              about God it is that He dared to imagine everything - Henry Miller
-            </p>
-          </div>
-        </div>
+        {/* <div className="parallel-item-ed" style={{ minHeight: "300px" }}></div> */}
+        <div
+          className="parallax-item abs"
+          style={{ justifyContent: "start" }}
+        ></div>
         <div className="parallax-item">
           <div className="max-w-3xl m-auto">
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10">
@@ -111,15 +85,10 @@ export default function Home({ heading, description }: HomeProps) {
             </p>
           </div>
         </div>
-        <div className="parallax-item abs" style={{ justifyContent: "start" }}>
-          <div className="absolute bg-black w-[500px] px-10 py-5 rounded-lg left-[3rem]">
-            <p className="text-pleasant-blue">
-              The future is something which everyone reaches at the rate of
-              sixty minutes an hour, whatever he does, whoever he is | C.S.
-              Lewis
-            </p>
-          </div>
-        </div>
+        <div
+          className="parallax-item abs"
+          style={{ justifyContent: "start" }}
+        ></div>
         <div className="parallax-item">
           <div className="max-w-3xl m-auto">
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10">
@@ -144,21 +113,11 @@ export default function Home({ heading, description }: HomeProps) {
             </p>
           </div>
         </div>
-        <div className="parallax-item abs" style={{ justifyContent: "start" }}>
-          <div className="absolute bg-black w-[500px] px-10 py-5 rounded-lg left-[3rem]">
-            <p className="text-pleasant-blue">
-              The true object of all human life is play. Earth is a task garden;
-              heaven a playground | GK Chesterton
-            </p>
-          </div>
-        </div>
-        <div className="parallax-item py-24">
-          <div className="max-w-3xl m-auto">
-            <button className="border-2 px-4 py-1 rounded-full border-[#ffffff70] text-[#ffffff70]">
-              Appreciate
-            </button>
-          </div>
-        </div>
+        <div
+          className="parallax-item abs"
+          style={{ justifyContent: "start" }}
+        ></div>
+        <div className="parallax-item py-24"></div>
         <div className="flex justify-center items-center bg-[#444] py-4 text-gray-200 gap-3 text-xs">
           <p>Terms of Service</p>
           <p>Privacy Policy</p>
