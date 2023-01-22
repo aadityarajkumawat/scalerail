@@ -5,6 +5,7 @@ import flags from "react-phone-number-input/flags";
 import "react-phone-number-input/style.css";
 import z from "zod";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import Head from "next/head";
 
 interface ContactFormProps {
   name: string;
@@ -185,6 +186,9 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col justify-center items-center px-10 py-10 w-[550px] max-md:w-full m-auto">
+      <Head>
+        <title>Scalerail | Contact</title>
+      </Head>
       {submitted ? (
         <>
           <div className="border border-zinc-700 rounded-md px-10 py-5 appear-in">

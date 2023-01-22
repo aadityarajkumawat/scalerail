@@ -1,6 +1,7 @@
 import { ProductsSection } from "../components/ProductsSection";
 import { GiClockwork, GiCosmicEgg } from "react-icons/gi";
 import { ImDatabase } from "react-icons/im";
+import Head from "next/head";
 
 interface ProductCardProps {
   title: string;
@@ -24,11 +25,14 @@ export function ProductCard(props: ProductCardProps) {
 function Products() {
   return (
     <div className="w-full flex flex-col justify-center items-center py-10">
+      <Head>
+        <title>ScaleRail | Products</title>
+      </Head>
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-pleasant-blue">Products</h1>
       </div>
 
-      <div className="flex flex-col justify-center items-center gap-10 px-10 w-[600px]">
+      <div className="flex flex-col justify-center items-center gap-10 px-10 max-w-[600px]">
         <ProductsSection
           title="Core Products"
           desc="The best core products in the world, that you can find for your business."

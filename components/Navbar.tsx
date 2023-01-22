@@ -11,7 +11,11 @@ export function Navbar() {
       <div className="w-full flex justify-between bg-transparent px-10 py-5">
         <div>
           <Link href="/">
-            <img src="/logo.png" alt="scalerail" style={{ width: "40px" }} />
+            <img
+              src="/logo.png"
+              alt="scalerail"
+              className="w-[40px] max-lg:w-[30px]"
+            />
           </Link>
         </div>
         <div className="flex items-center">

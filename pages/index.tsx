@@ -1,3 +1,5 @@
+import Head from "next/head";
+import Image from "next/image";
 import { useEffect } from "react";
 import { sanityClient } from "../sanity";
 
@@ -27,6 +29,9 @@ export default function Home({ heading, description }: HomeProps) {
 
   return (
     <div>
+      <Head>
+        <title>ScaleRail</title>
+      </Head>
       <section>
         <div
           id="parallax"
