@@ -83,7 +83,9 @@ export async function addEntryToContactForm(
       itemName: `Contact Form-${date.toISOString()}`,
       columnVals: JSON.stringify({
         email: { email: form.email, text: form.email },
-        text7: form.name,
+        text0: form.companyName,
+        phone_1: { phone: form.phone, countryShortName: form.country },
+        long_text2: { text: form.anythingElse },
       }),
     };
 
@@ -109,6 +111,7 @@ export async function addEntryToContactForm(
       console.log(error.message);
       return { success: false, error: error.message };
     }
+    return { success: false, error: "Oops! Something went wrong." };
   }
 }
 
@@ -167,7 +170,13 @@ export default function Contact() {
       return;
     }
 
-    router.push("/", {});
+    const res = await addEntryToContactForm(form, token, boardId);
+    if (res.error) {
+      alert(res.error);
+      return;
+    }
+
+    // router.push("/", {});
   }
 
   return (
@@ -244,8 +253,9 @@ export default function Contact() {
             id="anything-else"
             cols={30}
             rows={5}
-            // onChange={onCh}
-            // onBlur={onBlur}
+            onChange={(e) => {
+              setForm((f) => ({ ...f, anythingElse: e.target.value }));
+            }}
           ></textarea>
         </div>
         <button
