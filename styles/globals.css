@@ -142,3 +142,17 @@ input:focus::-webkit-input-placeholder {
 .select div {
   background: #000;
 }
+
+@keyframes appear_in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.appear-in {
+  animation: appear_in 0.5s ease-out 0s 1 normal forwards;
+}

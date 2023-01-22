@@ -4,6 +4,8 @@ import PhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 import "react-phone-number-input/style.css";
 import z from "zod";
+import { AiOutlineArrowRight } from "react-icons/ai";
+
 interface ContactFormProps {
   name: string;
   companyName: string;
@@ -134,6 +136,8 @@ export default function Contact() {
     phone: "",
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const router = useRouter();
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -176,95 +180,118 @@ export default function Contact() {
       return;
     }
 
-    // router.push("/", {});
+    setSubmitted(true);
   }
 
   return (
-    <div className="flex flex-col justify-center items-center px-10">
-      <h1 className="text-3xl font-bold my-3">Contact</h1>
-      <p>Some text if you want to put something here</p>
-      <form className="mt-10 w-[550px] max-md:w-full" onSubmit={onSubmit}>
-        <div className="flex items-center justify-center gap-10 mb-10 w-full">
-          <Input
-            id="name"
-            label="Name"
-            name="name"
-            type="text"
-            value={form.name}
-            error={errors.name}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
-          <Input
-            id="email"
-            label="E-Mail"
-            name="email"
-            type="email"
-            value={form.email}
-            error={errors.email}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
-        </div>
-        <Input
-          id="companyName"
-          label="Company Name"
-          name="companyName"
-          type="text"
-          value={form.companyName}
-          error={errors.companyName}
-          onChange={onChange}
-          className="mb-10"
-          onBlur={onBlur}
-        />
+    <div className="flex flex-col justify-center items-center px-10 w-[550px] max-md:w-full">
+      {submitted ? (
+        <>
+          <div className="border border-zinc-700 rounded-md px-10 py-5 appear-in">
+            <h1 className="text-3xl">Thanks!</h1>
+            <p className="text-zinc-400">
+              Form has been successfully submitted
+            </p>
+            <button
+              className="flex items-center gap-2 bg-pleasant-blue rounded-md px-3 py-1 mt-5"
+              onClick={() => router.push("/", {})}
+            >
+              <p>Continue</p>
+              <AiOutlineArrowRight />
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1 className="text-3xl font-bold my-3">Contact</h1>
+          <p>
+            Please fill out the following details and our team will reach out to
+            you as soon as possible.
+          </p>
+          <form className="mt-10" onSubmit={onSubmit}>
+            <div className="flex items-center justify-center gap-10 mb-10 w-full">
+              <Input
+                id="name"
+                label="Name"
+                name="name"
+                type="text"
+                value={form.name}
+                error={errors.name}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+              <Input
+                id="email"
+                label="E-Mail"
+                name="email"
+                type="email"
+                value={form.email}
+                error={errors.email}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            </div>
+            <Input
+              id="companyName"
+              label="Company Name"
+              name="companyName"
+              type="text"
+              value={form.companyName}
+              error={errors.companyName}
+              onChange={onChange}
+              className="mb-10"
+              onBlur={onBlur}
+            />
 
-        <div className="mb-10">
-          <PhoneInput
-            placeholder="Enter phone number"
-            className="border-b border-b-pleasant-blue w-full text-[#333]"
-            value={form.phone}
-            onCountryChange={(country: any) => {
-              setForm((f) => ({ ...f, country }));
-            }}
-            onChange={(phone: any) => {
-              setForm((f) => ({ ...f, phone }));
-            }}
-            onBlur={(e: any) => {
-              const phone = e.target.value;
-              try {
-                contactFormSchema.shape.phone.parse(phone);
-                setErrors((ers) => ({ ...ers, phone: "" }));
-              } catch (error) {
-                if (error instanceof Error) {
-                  const msg = JSON.parse(error.message)[0].message;
-                  setErrors((ers) => ({ ...ers, phone: msg }));
-                }
-              }
-            }}
-            flags={flags}
-          />
-          <div className="text-sm text-red-400">{errors.phone}</div>
-        </div>
-        <div className="w-full">
-          <textarea
-            placeholder="Anything else you want to share?"
-            className="bg-black border border-pleasant-blue rounded-md w-full px-5 py-3 mt-3"
-            name="anythingElse"
-            id="anything-else"
-            cols={30}
-            rows={5}
-            onChange={(e) => {
-              setForm((f) => ({ ...f, anythingElse: e.target.value }));
-            }}
-          ></textarea>
-        </div>
-        <button
-          className="w-full py-3 mt-10 rounded-lg bg-pleasant-blue text-white"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
+            <div className="mb-10">
+              <PhoneInput
+                placeholder="Enter phone number"
+                className="border-b border-b-pleasant-blue w-full text-[#333]"
+                value={form.phone}
+                onCountryChange={(country: any) => {
+                  setForm((f) => ({ ...f, country }));
+                }}
+                onChange={(phone: any) => {
+                  setForm((f) => ({ ...f, phone }));
+                }}
+                onBlur={(e: any) => {
+                  const phone = e.target.value;
+                  try {
+                    contactFormSchema.shape.phone.parse(phone);
+                    setErrors((ers) => ({ ...ers, phone: "" }));
+                  } catch (error) {
+                    if (error instanceof Error) {
+                      const msg = JSON.parse(error.message)[0].message;
+                      setErrors((ers) => ({ ...ers, phone: msg }));
+                    }
+                  }
+                }}
+                flags={flags}
+              />
+              <div className="text-sm text-red-400">{errors.phone}</div>
+            </div>
+            <div className="w-full">
+              <textarea
+                placeholder="Anything else you want to share?"
+                className="bg-black border border-pleasant-blue rounded-md w-full px-5 py-3 mt-3"
+                name="anythingElse"
+                id="anything-else"
+                cols={30}
+                rows={5}
+                onChange={(e) => {
+                  setForm((f) => ({ ...f, anythingElse: e.target.value }));
+                }}
+              ></textarea>
+            </div>
+            <button
+              className="w-full py-3 mt-10 rounded-lg bg-pleasant-blue text-white"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 }
