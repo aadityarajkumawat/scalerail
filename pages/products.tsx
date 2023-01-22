@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 export function ProductCard(props: ProductCardProps) {
   return (
-    <div className="bg-zinc-900 rounded-lg p-10 border border-zinc-800 w-[600px]">
+    <div className="bg-zinc-900 rounded-lg p-10 border border-zinc-800 w-[600px] max-md:w-[450px] max-sm:w-full">
       <div className="flex justify-center items-center mb-5">
         <h3>{props.title}</h3>
       </div>
@@ -28,7 +28,7 @@ function Products() {
         <h1 className="text-3xl font-bold text-pleasant-blue">Products</h1>
       </div>
 
-      <div className="flex flex-col justify-center items-center gap-10">
+      <div className="flex flex-col justify-center items-center gap-10 px-10 w-full">
         <ProductsSection
           title="Core Products"
           desc="desc"
