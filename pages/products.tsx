@@ -9,13 +9,13 @@ interface ProductCardProps {
 
 export function ProductCard(props: ProductCardProps) {
   return (
-    <div className="bg-zinc-900 rounded-lg p-10 border border-zinc-800 w-[600px] max-md:w-[450px] max-sm:w-full">
+    <div className="bg-zinc-900 rounded-lg p-10 border border-zinc-800 w-full">
       <div className="flex justify-center items-center mb-5">
         <h3>{props.title}</h3>
       </div>
 
-      <div className="text-zinc-500">
-        <p>{props.description}</p>
+      <div className="text-zinc-300">
+        <p className="text-center">{props.description}</p>
       </div>
     </div>
   );
@@ -28,22 +28,22 @@ function Products() {
         <h1 className="text-3xl font-bold text-pleasant-blue">Products</h1>
       </div>
 
-      <div className="flex flex-col justify-center items-center gap-10 px-10 w-full">
+      <div className="flex flex-col justify-center items-center gap-10 px-10 w-[600px]">
         <ProductsSection
           title="Core Products"
-          desc="desc"
+          desc="The best core products in the world, that you can find for your business."
           productType="core"
           Icon={GiClockwork}
         />
         <ProductsSection
           title="Ecosystem Products"
-          desc="desc"
+          desc="The best eco-system products in the world, that you can find for your business."
           productType="eco"
           Icon={GiCosmicEgg}
         />
         <ProductsSection
           title="Data Products"
-          desc="desc"
+          desc="The best data products in the world, that you can find for your business."
           productType="data"
           Icon={ImDatabase}
         />

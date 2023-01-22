@@ -184,7 +184,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center px-10 w-[550px] max-md:w-full">
+    <div className="flex flex-col justify-center items-center px-10 py-10 w-[550px] max-md:w-full m-auto">
       {submitted ? (
         <>
           <div className="border border-zinc-700 rounded-md px-10 py-5 appear-in">
@@ -203,12 +203,14 @@ export default function Contact() {
         </>
       ) : (
         <>
-          <h1 className="text-3xl font-bold my-3">Contact</h1>
-          <p>
+          <h1 className="text-3xl font-bold my-3 text-pleasant-blue">
+            Contact
+          </h1>
+          <p className="text-center text-second">
             Please fill out the following details and our team will reach out to
             you as soon as possible.
           </p>
-          <form className="mt-10" onSubmit={onSubmit}>
+          <form className="mt-10 w-full" onSubmit={onSubmit}>
             <div className="flex items-center justify-center gap-10 mb-10 w-full">
               <Input
                 id="name"

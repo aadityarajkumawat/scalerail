@@ -34,9 +34,21 @@ export const PRODUCTS = {
     },
   ],
   data: [
-    { title: "Healthcare Industry", description: "" },
-    { title: "Financial Industry", description: "" },
-    { title: "Education", description: "" },
+    {
+      title: "Healthcare Industry",
+      description:
+        "Some description about the product and why it should be used.",
+    },
+    {
+      title: "Financial Industry",
+      description:
+        "Some description about the product and why it should be used.",
+    },
+    {
+      title: "Education",
+      description:
+        "Some description about the product and why it should be used.",
+    },
   ],
 };
 
