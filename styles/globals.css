@@ -96,12 +96,6 @@ body {
   /* Parallax Effect for DIV 3 */
 }
 
-@media screen and (max-width: 768px) {
-  .parallax-item h2 {
-    font-size: 1.5rem;
-  }
-}
-
 label {
   position: absolute;
   top: 50%;

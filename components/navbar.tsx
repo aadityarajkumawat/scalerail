@@ -15,7 +15,7 @@ export function Navbar() {
           </Link>
         </div>
         <div className="flex items-center">
-          <ul className="flex items-center justify-center text-lg gap-2">
+          <ul className="flex items-center justify-center text-lg gap-2 max-sm:text-base">
             <li>
               <Link href="/">home</Link>
             </li>

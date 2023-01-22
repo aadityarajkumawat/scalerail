@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 import "react-phone-number-input/style.css";
 import z from "zod";
-import { Navbar } from "../components/navbar";
 interface ContactFormProps {
   name: string;
   companyName: string;
@@ -173,10 +171,10 @@ export default function Contact() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-bold mb-3">Contact</h1>
+    <div className="flex flex-col justify-center items-center px-10">
+      <h1 className="text-3xl font-bold my-3">Contact</h1>
       <p>Some text if you want to put something here</p>
-      <form className="mt-10 w-1/3 max-lg:w-1/2" onSubmit={onSubmit}>
+      <form className="mt-10 w-[550px] max-md:w-full" onSubmit={onSubmit}>
         <div className="flex items-center justify-center gap-10 mb-10 w-full">
           <Input
             id="name"

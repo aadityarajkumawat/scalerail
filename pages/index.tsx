@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { useEffect } from "react";
-import { Navbar } from "../components/navbar";
 import { sanityClient } from "../sanity";
 
 export async function getStaticProps() {
@@ -49,7 +47,10 @@ export default function Home({ heading, description }: HomeProps) {
                   "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(15, 15, 15, 0.7) 49.08%, rgba(217, 217, 217, 0) 100%)",
               }}
             >
-              <h2 id="shadow" className="text-center text-7xl font-thin">
+              <h2
+                id="shadow"
+                className="text-center text-7xl font-thin max-md:text-5xl"
+              >
                 ScaleRail
               </h2>
               <p className="py-2 text-lg">software | ops | action</p>
@@ -62,23 +63,23 @@ export default function Home({ heading, description }: HomeProps) {
           style={{ justifyContent: "start" }}
         ></div>
         <div className="parallax-item">
-          <div className="max-w-3xl m-auto">
-            <h1 className="text-pleasant-blue text-5xl leading-snug mb-10">
+          <div className="max-w-3xl m-auto px-10">
+            <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               We make tools for the most productive people on planet earth
             </h1>
-            <p className="text-3xl text-pleasant-blue leading-snug">
+            <p className="text-3xl text-pleasant-blue leading-snug max-lg:text-xl">
               The most productive human in the history of the world is alive
               today - and we think he needs more than a spreadsheet.
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               Our tools are designed to maximize the most important metric at
               your company &quot;average hours of focused attention&quot;
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               We&apos;re constantly innovating new solutions to make your
               workflow easier and more efficient
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               We believe everyone should have access to powerful tools that
               enable peak productivity. With our tools, you&apos;ll be able to
               work smarter and faster than ever before
@@ -90,24 +91,24 @@ export default function Home({ heading, description }: HomeProps) {
           style={{ justifyContent: "start" }}
         ></div>
         <div className="parallax-item">
-          <div className="max-w-3xl m-auto">
-            <h1 className="text-pleasant-blue text-5xl leading-snug mb-10">
+          <div className="max-w-3xl m-auto px-10">
+            <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               Creativity is the intersection region of knowledge + imagination
             </h1>
-            <p className="text-3xl text-pleasant-blue leading-snug">
+            <p className="text-3xl text-pleasant-blue leading-snug max-lg:text-xl">
               Our products do one thing: increase the area of this interaction
               region
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               Our tools provide the bridge that lets you explore your creative
               potential and unlock new possibilities
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               By combining intelligence, tools and technology, we allow you to
               achieve your fullest potential and make unique connections that
               can have positive impacts on your life
             </p>
-            <p className="my-10 text-lg">
+            <p className="my-10 text-lg max-lg:text-base">
               We are passionate about helping you explore the depths of your
               creativity and use it to craft something incredible
             </p>

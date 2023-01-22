@@ -1,5 +1,3 @@
-import { Navbar } from "../components/navbar";
-
 interface ProductCardProps {
   title: string;
   description: string;
