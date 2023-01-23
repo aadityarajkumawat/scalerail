@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect } from "react";
+import Image, { ImageLoader } from "next/image";
+import { useEffect, useState } from "react";
 import { sanityClient } from "../sanity";
 
 export async function getStaticProps() {
@@ -16,6 +16,7 @@ interface HomeProps {
 export default function Home({ heading, description }: HomeProps) {
   useEffect(() => {
     const mainText = document.getElementById("main-text");
+
     if (!mainText) return;
 
     window.addEventListener("scroll", () => {
@@ -31,10 +32,11 @@ export default function Home({ heading, description }: HomeProps) {
     <div>
       <Head>
         <title>ScaleRail</title>
+        <link rel="preload" href={"/leaves_neon_triangle.jpg"} as="image" />
       </Head>
       <section>
         <div
-          id="parallax"
+          id="parallax landing-img"
           className="parallax-item"
           style={{
             backgroundSize: "cover",
@@ -62,29 +64,32 @@ export default function Home({ heading, description }: HomeProps) {
             </div>
           </div>
         </div>
-        {/* <div className="parallel-item-ed" style={{ minHeight: "300px" }}></div> */}
+
+        <div className="parallax-item"></div>
+
         <div
-          className="parallax-item abs"
+          className="parallax-item"
           style={{ justifyContent: "start" }}
         ></div>
+
         <div className="parallax-item">
           <div className="max-w-3xl m-auto px-10">
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               We make tools for the most productive people on planet earth
             </h1>
-            <p className="text-3xl text-pleasant-blue leading-snug max-lg:text-xl">
+            <p className="text-3xl text-second leading-snug max-lg:text-xl">
               The most productive human in the history of the world is alive
               today - and we think he needs more than a spreadsheet.
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               Our tools are designed to maximize the most important metric at
               your company &quot;average hours of focused attention&quot;
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               We&apos;re constantly innovating new solutions to make your
               workflow easier and more efficient
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               We believe everyone should have access to powerful tools that
               enable peak productivity. With our tools, you&apos;ll be able to
               work smarter and faster than ever before
@@ -100,20 +105,20 @@ export default function Home({ heading, description }: HomeProps) {
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               Creativity is the intersection region of knowledge + imagination
             </h1>
-            <p className="text-3xl text-pleasant-blue leading-snug max-lg:text-xl">
+            <p className="text-3xl text-second leading-snug max-lg:text-xl">
               Our products do one thing: increase the area of this interaction
               region
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               Our tools provide the bridge that lets you explore your creative
               potential and unlock new possibilities
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               By combining intelligence, tools and technology, we allow you to
               achieve your fullest potential and make unique connections that
               can have positive impacts on your life
             </p>
-            <p className="my-10 text-lg max-lg:text-base">
+            <p className="my-10 text-lg max-lg:text-base text-second">
               We are passionate about helping you explore the depths of your
               creativity and use it to craft something incredible
             </p>
@@ -124,7 +129,7 @@ export default function Home({ heading, description }: HomeProps) {
           style={{ justifyContent: "start" }}
         ></div>
         <div className="parallax-item py-24"></div>
-        <div className="flex justify-center items-center bg-[#444] py-4 text-gray-200 gap-3 text-xs">
+        <div className="flex justify-center items-center py-4 gap-3 text-xs ml">
           <p>Terms of Service</p>
           <p>Privacy Policy</p>
           <p>Report Abuse</p>
