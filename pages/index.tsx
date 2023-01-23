@@ -68,12 +68,12 @@ export default function Home({ heading, description }: HomeProps) {
         <div className="parallax-item"></div>
 
         <div
-          className="parallax-item"
+          className="parallax-item h-[400px] max-lg:h-[300px]"
           style={{ justifyContent: "start" }}
         ></div>
 
         <div className="parallax-item">
-          <div className="max-w-3xl m-auto px-10">
+          <div className="max-w-3xl m-auto px-10 py-10">
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               We make tools for the most productive people on planet earth
             </h1>
@@ -97,11 +97,11 @@ export default function Home({ heading, description }: HomeProps) {
           </div>
         </div>
         <div
-          className="parallax-item abs"
+          className="parallax-item h-[400px] max-lg:h-[300px]"
           style={{ justifyContent: "start" }}
         ></div>
         <div className="parallax-item">
-          <div className="max-w-3xl m-auto px-10">
+          <div className="max-w-3xl m-auto px-10 py-10">
             <h1 className="text-pleasant-blue text-5xl leading-snug mb-10 max-lg:text-3xl">
               Creativity is the intersection region of knowledge + imagination
             </h1>
@@ -125,7 +125,7 @@ export default function Home({ heading, description }: HomeProps) {
           </div>
         </div>
         <div
-          className="parallax-item abs"
+          className="parallax-item h-[400px] max-lg:h-[300px]"
           style={{ justifyContent: "start" }}
         ></div>
         <div className="parallax-item py-24"></div>
