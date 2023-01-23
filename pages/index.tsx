@@ -3,6 +3,7 @@ import Image, { ImageLoader } from "next/image";
 import { useEffect, useState } from "react";
 import { sanityClient } from "../sanity";
 
+// new
 export async function getStaticProps() {
   const homePageContent = await sanityClient.fetch('*[_type=="home"][0]');
   return { props: { ...homePageContent } };
